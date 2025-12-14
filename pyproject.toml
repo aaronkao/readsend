@@ -1,0 +1,11 @@
+[project]
+name = "readsend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pinecone>=8.0.0",
+    "python-dotenv>=1.2.1",
+    "resend>=2.19.0",
+]
