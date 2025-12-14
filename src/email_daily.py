@@ -3,7 +3,7 @@ import resend
 from datetime import datetime
 from dotenv import load_dotenv
 from pinecone import Pinecone
-from daily_read import get_random_highlights, validate_env as validate_pinecone_env
+from src.daily_read import get_random_highlights, validate_env as validate_pinecone_env
 
 # Load environment variables
 load_dotenv()

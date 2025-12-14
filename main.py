@@ -1,5 +1,7 @@
+from src.email_daily import main as send_daily_email
+
 def main():
-    print("Hello from readsend!")
+    send_daily_email()
 
 
 if __name__ == "__main__":
