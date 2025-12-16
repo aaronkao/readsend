@@ -5,7 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "esv-sdk",
     "pinecone>=8.0.0",
     "python-dotenv>=1.2.1",
     "resend>=2.19.0",
 ]
+
+[tool.uv.sources]
+esv-sdk = { git = "https://github.com/walker-tx/esv-sdk-py" }

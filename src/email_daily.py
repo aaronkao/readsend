@@ -3,7 +3,7 @@ import resend
 from datetime import datetime
 from dotenv import load_dotenv
 from pinecone import Pinecone
-from src.daily_read import get_random_highlights, validate_env as validate_pinecone_env
+from src.daily_read import get_kindle_highlights, get_bible_verses, validate_env as validate_pinecone_env
 
 # Load environment variables
 load_dotenv()
@@ -26,7 +26,7 @@ def create_email_body(highlights):
     <html>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <h2 style="color: #2c3e50;">Your Daily Highlights</h2>
-        <p style="color: #7f8c8d;">Here are 5 random highlights from your library for today:</p>
+        <p style="color: #7f8c8d;">Here are random highlights from your library for today:</p>
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
     """
     
@@ -85,11 +85,15 @@ def main():
     
     # Get highlights
     print("Fetching highlights...")
-    highlights = get_random_highlights(index, count=5)
+    kindle_highlights = get_kindle_highlights(index, count=5)
+    bible_verses = get_bible_verses(index, count=2)
+    highlights = kindle_highlights + bible_verses
     
     if not highlights:
         print("No highlights found.")
         return
+    
+    print(f"Fetched {len(kindle_highlights)} Kindle highlights and {len(bible_verses)} Bible verses.")
         
     # Create and send email
     today_str = datetime.now().strftime("%B %d, %Y")
