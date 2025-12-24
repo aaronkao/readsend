@@ -37,6 +37,7 @@ Create a `.env` file in the project root with the following variables:
 # Pinecone Configuration
 PINECONE_API_KEY=your_pinecone_api_key
 PINECONE_INDEX_HOST=your_index_host_url
+PINECONE_NAMESPACE=aaron  # Your specific namespace
 
 # Resend Configuration
 RESEND_API_KEY=your_resend_api_key

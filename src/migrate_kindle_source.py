@@ -12,6 +12,7 @@ load_dotenv()
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_HOST = os.getenv("PINECONE_INDEX_HOST")
+PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE", "aaron")
 
 def validate_env():
     if not all([PINECONE_API_KEY, PINECONE_INDEX_HOST]):
@@ -32,9 +33,9 @@ def migrate_kindle_source():
     updated_count = 0
     batch_size = 100
     
-    # Get all vector IDs
+    # Pinecone serverless supports list() to get all vector IDs
     all_ids = []
-    for ids_batch in index.list():
+    for ids_batch in index.list(namespace=PINECONE_NAMESPACE):
         all_ids.extend(ids_batch)
     
     print(f"Found {len(all_ids)} total vectors in index.")
@@ -44,7 +45,7 @@ def migrate_kindle_source():
         batch_ids = all_ids[i:i + batch_size]
         
         # Fetch vectors with metadata
-        fetch_result = index.fetch(ids=batch_ids)
+        fetch_result = index.fetch(ids=batch_ids, namespace=PINECONE_NAMESPACE)
         
         updates = []
         for vec_id, vec_data in fetch_result.vectors.items():
@@ -63,7 +64,7 @@ def migrate_kindle_source():
             })
         
         if updates:
-            index.upsert(vectors=updates)
+            index.upsert(vectors=updates, namespace=PINECONE_NAMESPACE)
             updated_count += len(updates)
             print(f"Updated {len(updates)} vectors in batch {i//batch_size + 1}")
     

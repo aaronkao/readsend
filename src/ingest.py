@@ -13,6 +13,7 @@ load_dotenv()
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_HOST = os.getenv("PINECONE_INDEX_HOST")
+PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE", "aaron")
 ESV_API_KEY = os.getenv("ESV_API_KEY")
 
 def validate_env():
@@ -38,7 +39,7 @@ def get_embeddings_batch(texts: List[str], pc: Pinecone) -> List[List[float]]:
 def batch_upsert(index, vectors, batch_size=100):
     for i in range(0, len(vectors), batch_size):
         batch = vectors[i:i + batch_size]
-        index.upsert(vectors=batch)
+        index.upsert(vectors=batch, namespace=PINECONE_NAMESPACE)
         print(f"Upserted batch {i//batch_size + 1}")
 
 def ingest_clippings(index, pc):

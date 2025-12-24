@@ -11,6 +11,7 @@ load_dotenv()
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_HOST = os.getenv("PINECONE_INDEX_HOST")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE", "aaron")
 EMAIL_FROM = os.getenv("EMAIL_FROM", "onboarding@resend.dev") # Default Resend testing domain
 EMAIL_TO = os.getenv("EMAIL_TO")
 

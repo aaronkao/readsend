@@ -9,6 +9,7 @@ load_dotenv()
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_HOST = os.getenv("PINECONE_INDEX_HOST")
+PINECONE_NAMESPACE = os.getenv("PINECONE_NAMESPACE", "aaron")
 
 def validate_env():
     if not all([PINECONE_API_KEY, PINECONE_INDEX_HOST]):
@@ -47,7 +48,8 @@ def get_random_highlights(index, count=5, source=None):
                 vector=query_vector,
                 top_k=1,
                 include_metadata=True,
-                filter=filter_dict
+                filter=filter_dict,
+                namespace=PINECONE_NAMESPACE
             )
             
             if results['matches']:
